@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  }
+}
+
+body {
+  font-family: Fira Code, 霞鹜文楷, system-ui, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@layer components {
+  .btn {
+    @apply hover:bg-gray-100 cursor-pointer;
+    border-radius: 4px;
+  }
+  .canlendar-unit {
+    display: inline-block;
+    height: 26px;
+    width: 26px;
+    text-align: center;
+    line-height: 26px;
+  }
+  .month-unit {
+    border: 1px;
+  }
+  .unit {
+    /*  */
+  }
+}
