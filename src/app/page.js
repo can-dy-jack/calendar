@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import SideBar from "./sidebar";
-import Canlendar from "@/components/canlendar";
+import Schedule from "./Schedule";
 
 export default function Home() {
   const [openSide, setSider] = useState(true);
@@ -38,7 +38,7 @@ export default function Home() {
           <div></div>
         </nav>
         <div>
-          <Canlendar unitClass={"month-unit"} unit={"unit"} showHead={false} />
+          <Schedule />
         </div>
       </div>
     </main>
