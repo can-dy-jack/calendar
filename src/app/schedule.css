@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+
+@layer components {
+  .unit {
+    @apply p-1;
+    flex: 1;
+    box-sizing: border-box;
+  }
+  .unit-day {
+    border-right: 1px solid rgb(203 213 225);
+    border-bottom: 1px solid rgb(203 213 225);
+    cursor: pointer;
+  }
+}

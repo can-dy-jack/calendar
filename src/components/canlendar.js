@@ -1,12 +1,19 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useContext } from "react";
 import { month_size } from "@/utils/calendar";
 import CalendarTypeBar from "./calendarTypeBar";
+import startTypeContext from "../../store/startType";
 
-export default function Canlendar({ unitClass, unit, showHead = true }) {
-  const [date, _] = useState(new Date("2023-11-01"));
-  const [startType, setStartType] = useState(1); // sundy(0) or Monday(1)
+export default function Canlendar({
+  unitClass,
+  unit,
+  showHead = true
+}) {
+  const [date, _] = useState(new Date());
+  const {
+    startType
+  } = useContext(startTypeContext);
 
   // useEffect(() => {
   //   setDate(new Date());
@@ -90,24 +97,22 @@ export default function Canlendar({ unitClass, unit, showHead = true }) {
     return ans;
   }, [date, unitClass, unit, startType]);
 
-  const setType = (type) => setStartType(type);
-
   return (
     <div className="text-sm p-3">
       {showHead && (
         <div className="mb-2">
           <div className="flex justify-between items-center">
-          <div className="font-medium flex items-center gap-1">
-            {date.getFullYear() + "年" + (date.getMonth() + 1) + "月"}
-          </div>
-          <div className="flex gap-1">
-            <span className="canlendar-unit btn">{"<"}</span>
-            <span className="canlendar-unit btn">{">"}</span>
-          </div>
+            <div className="font-medium flex items-center gap-1">
+              {date.getFullYear() + "年" + (date.getMonth() + 1) + "月"}
+            </div>
+            <div className="flex gap-1">
+              <span className="canlendar-unit btn">{"<"}</span>
+              <span className="canlendar-unit btn">{">"}</span>
+            </div>
           </div>
 
           <div>
-            <CalendarTypeBar type={startType} ontypechange={setType} />
+            <CalendarTypeBar />
           </div>
         </div>
       )}
