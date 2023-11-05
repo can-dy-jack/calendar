@@ -20,82 +20,8 @@ export default function Canlendar({
   // }, []);
 
   const caculateDays = useMemo(() => {
-    const head =
-      startType === 1
-        ? ["一", "二", "三", "四", "五", "六", "日"]
-        : ["日", "一", "二", "三", "四", "五", "六"];
-    const ans = [];
-    ans.push(
-      head.map((item) => (
-        <span className={unitClass} key={item}>
-          {item}
-        </span>
-      ))
-    );
-
-    let cur_month = date.getMonth();
-    let cnt = 1,
-      nextCnt = 1;
-    let month_max_days = month_size.slice(cur_month - 1, cur_month + 1);
-    let day = date.getDay() === 0 ? 7 : date.getDay();
-    let isBefore = startType === 1 ? day > 1 : day < 7;
-    let start =
-      startType === 1
-        ? month_max_days[0] - day + 2
-        : day === 7
-        ? 0
-        : month_max_days[0] - day + 1;
-    while (cnt <= month_max_days[1]) {
-      let temp = [];
-      for (let i = 0; i < 7; i++) {
-        if (isBefore) {
-          if (start <= month_max_days[0]) {
-            temp.push(
-              <span
-                data-month={cur_month - 1}
-                className={`${unitClass} ${unit} text-gray-500`}
-                key={cur_month - 1 + "-" + start}
-              >
-                {start}
-              </span>
-            );
-            start++;
-          } else {
-            isBefore = false;
-            i--;
-          }
-        } else if (cnt > month_max_days[1]) {
-          temp.push(
-            <span
-              data-month={cur_month + 1}
-              className={`${unitClass} ${unit} text-gray-500`}
-              key={cur_month + 1 + "-" + nextCnt}
-            >
-              {nextCnt}
-            </span>
-          );
-          nextCnt++;
-        } else {
-          temp.push(
-            <span
-              data-month={cur_month}
-              className={
-                date.getDate() === cnt
-                  ? `${unitClass} ${unit} bg-blue-500 text-white hover:bg-blue-400`
-                  : `${unitClass} ${unit}`
-              }
-              key={cur_month + "-" + cnt}
-            >
-              {cnt}
-            </span>
-          );
-          cnt++;
-        }
-      }
-      ans.push(temp);
-    }
-    return ans;
-  }, [date, unitClass, unit, startType]);
+    return [];
+  }, []);
 
   return (
     <div className="text-sm p-3">

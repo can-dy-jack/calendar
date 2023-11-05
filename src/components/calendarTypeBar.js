@@ -6,10 +6,6 @@ import startTypeContext from "../../store/startType";
 export default function CalendarTypeBar() {
   const { startType, setStartType } = useContext(startTypeContext);
 
-  console.log(
-    { startType, setStartType }
-  )
-
   return (
     <div
       className={`border border-gray-200 h-[24px] w-[64px] p-1 rounded text-sm relative`}

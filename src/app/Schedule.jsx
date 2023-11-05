@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useContext } from "react";
+import {useState, useMemo, useContext, useEffect} from "react";
 import { month_size } from "@/utils/calendar";
 import startTypeContext from "../../store/startType";
 import "./Schedule.css";
@@ -23,7 +23,14 @@ export function MonthCalendar() {
   const {
     startType
   } = useContext(startTypeContext);
-  const [date, setDate] = useState(new Date());
+  const [first_date, setFirstDate] = useState(new Date());
+  const [date, _] = useState(new Date());
+
+  useEffect(() => {
+    let cur_year = date.getFullYear();
+    let cur_month = date.getMonth();
+    setFirstDate(new Date(cur_year, cur_month, 1));
+  }, [date]);
 
   const caculateDays = useMemo(() => {
     const head =
@@ -43,7 +50,8 @@ export function MonthCalendar() {
     let cnt = 1,
       nextCnt = 1;
     let month_max_days = month_size.slice(cur_month - 1, cur_month + 1);
-    let day = date.getDay() === 0 ? 7 : date.getDay();
+    let day = first_date.getDay() === 0 ? 7 : first_date.getDay();
+    let currentDay = startType === 1 ? 1 : 7;
     let isBefore = startType === 1 ? day > 1 : day < 7;
     let start =
       startType === 1
@@ -59,7 +67,7 @@ export function MonthCalendar() {
             temp.push(
               <div
                 data-month={cur_month - 1}
-                className={`unit unit-day text-gray-300`}
+                className={`unit unit-day text-gray-400 text-lg ${'day' + currentDay}`}
                 key={cur_month - 1 + "-" + start}
               >
                 {start}
@@ -68,13 +76,14 @@ export function MonthCalendar() {
             start++;
           } else {
             isBefore = false;
+            currentDay === 1 ? currentDay = 7 : currentDay--;
             i--;
           }
         } else if (cnt > month_max_days[1]) {
           temp.push(
             <div
               data-month={cur_month + 1}
-              className={`unit unit-day text-gray-300`}
+              className={`unit unit-day text-gray-400 text-lg ${'day' + currentDay}`}
               key={cur_month + 1 + "-" + nextCnt}
             >
               {nextCnt}
@@ -87,8 +96,8 @@ export function MonthCalendar() {
               data-month={cur_month}
               className={
                 date.getDate() === cnt
-                  ? `unit unit-day bg-blue-500 text-white hover:bg-blue-400`
-                  : `unit unit-day`
+                  ? `unit unit-day ${'day' + currentDay} text-blue-900 text-lg today`
+                  : `unit unit-day text-lg ${'day' + currentDay} `
               }
               key={cur_month + "-" + cnt}
             >
@@ -97,11 +106,17 @@ export function MonthCalendar() {
           );
           cnt++;
         }
+
+        if (currentDay >= 7) {
+          currentDay = 1;
+        } else {
+          currentDay++;
+        }
       }
       ans.push(temp);
     }
     return ans;
-  }, [date, startType]);
+  }, [date, startType, first_date]);
 
   return (
     <section className="h-full month-calendar flex flex-col">

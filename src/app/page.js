@@ -10,7 +10,7 @@ import startTypeContext from "../../store/startType";
 
 export default function Home() {
   const [openSide, setSider] = useState(true);
-  const [startType, setStartType] = useState(1);
+  const [startType, setStartType] = useState(0);
 
   return (
     <startTypeContext.Provider value={{startType, setStartType}}>

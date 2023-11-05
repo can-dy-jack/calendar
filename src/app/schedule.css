@@ -13,3 +13,24 @@
     cursor: pointer;
   }
 }
+
+.day6, .day7 {
+  background: #fafafa;
+  position: relative;
+}
+.day6::after, .day7::after {
+  content: "休";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 14px;
+  background: #eff2f6;
+  border-radius: 2px;
+  padding: 0 3px;
+  color: rgb(128, 128, 128);
+}
+.today::after {
+  content: "今";
+  background: #3c81d3;
+  color: #fff;
+}
